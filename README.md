@@ -1,70 +1,141 @@
-# Getting Started with Create React App
+# Preparación y estructura de proyectos React-Redux
+Este proyecto sirve como una guia de como preparar el proyecto inicial, crear los archivos necesarios para la aplicación con React-Redux, y entender el Ciclo de Vida.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Creación de aplicacion
 
-## Available Scripts
+En la terminal correr los siguientes comandos:
 
-In the project directory, you can run:
+```bash
+npx create-react-app nombre-app
+npm install redux react-redux
+cd nombre-app
+```
+#### NOTA: Donde está 'nombre-app', se puede poner el nombre de la aplicación que desee.
 
-### `npm start`
+Abrir el proyecto en el editor que use, por ejemplo en Visual Studio Code.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Preparar Aplicación
+Eliminar los siguientes archivos:
+```files
+App.css - Opcional
+App.test.js
+logo.svg
+reportWebVitals.js
+SetupTests.js
+```
+Luego eliminamos las importaciones de los archivos eliminados:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+En App.js, eliminar la primera línea:
 
-### `npm test`
+```javascript
+1 import logo from ´../logo.svg´;
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+En el index.js, eliminar la línea 5 y lo ultimo en el archivo:
 
-### `npm run build`
+```javascript
+5 import reportWebVitals from ´./reportWebVitals´;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+// Eliminar los comentarios finales y
+reportWebVitals();
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Estructura
+Para tener una mejor organización crear los siguientes archivos y carpetas:
 
-### `npm run eject`
+```files
+.
+├── components         # Aquí irán los archivos y carpetas de los componentes a ser creados.
+├── redux              # Aquí van los archivos o carpetas de las diferentes partes del Redux.
+      ├── actions.js   # Aquí creamos el código de las acciones
+      ├── reducer.js   # Aquí creamos el código del reducer
+      └── store.js     # Aqui creamos el código de store
+```
+Otra estructura recomendada es la siguiente:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```files
+.
+├── components             # Aquí irán los archivos y carpetas de los componentes a ser creados.
+└── redux                  # Aquí van los archivos o carpetas de las diferentes partes del Redux.
+    ├── actions            # Aquí van los archivos de las diferentes acciones.
+          └── index.js     # Aquí creamos el código de las acciones
+    ├── reducers           # Aquí van los archivos de los reducers.
+          └── index.js     # Aquí creamos el código de los reducers
+    └── store              # Aquí van los archivos del store
+          └── index.js     # Aqui creamos el código de store
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contenido de las partes de Redux
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Archivo actions.js
+Se sugiere crear el siguiente contenido (ejemplo para una aplicacion de contador):
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```javascript
+const increment =  () => {
+   return {
+     type: 'INCREMENT'
+   }
+}
 
-## Learn More
+const decrement =  () => {
+   return {
+     type: 'DECREMENT'
+   }
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Incluir las acciones que sean necesarias
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Se sugiere crear el siguiente contenido (ejemplo para una aplicacion de contador):
 
-### Code Splitting
+### Archivo reducer.js
+Se sugiere crear el siguiente contenido con switch:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+const initialState = { counter: 0 }
+const counter = (state = initialState, action) { 
+   switch(action.type){
+      case 'INCREMENTAR':
+          return { ...state, counter: state.counter + 1};
+      case 'DECREMENT':
+          return { ...state, counter: state.counter - 1};
+      default:
+          return state
+   }
+}
+```
+Se sugiere crear el siguiente contenido con if:
 
-### Analyzing the Bundle Size
+```javascript
+const initialState = { counter: 0 }
+const counter = (state = initialState, action) { 
+   if(action.type === "INCREMENTAR"){
+        return {
+            ...state,
+            counter: state + 1
+        }
+    }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   if(action.type === "DECREMENTAR"){
+        return {
+            ...state,
+            counter: state - 1
+        }
+    }
+    return state;
+}
 
-### Making a Progressive Web App
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Archivo store.js
+Se sugiere crear el siguiente contenido:
 
-### Advanced Configuration
+```javascript
+import { createStore } from 'redux';
+import { counter } from './reducer'
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+const store = createStore(counter);
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default store;
+```
