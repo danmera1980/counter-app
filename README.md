@@ -164,7 +164,7 @@ import React from 'react';
 
 // Hacer importación de las demas librerias
 
-export class NombreDeClase extends Component{
+export class NombreDeClase extends React.Component{
   constructor(props){
     super(props);
     this.state = {
@@ -186,6 +186,7 @@ export class NombreDeClase extends Component{
 // Para Redux
 function mapStateToProps(state){
   return {
+     // mapear el estado del store
     // codigo aqui
   }
 }
@@ -208,7 +209,7 @@ import React from 'react';
 
 // Hacer importación de las demas librerias
 
-const NombreDeFunccion = (props) => {
+const NombreDeFuncion = (props) => {
   const [name, setName] = React.useState("")
 
   // Ingresar funciones o variables
@@ -229,8 +230,9 @@ function mapStateToProps(state){
 
 
 
-function mapDispatchToProps(state){
+function mapDispatchToProps(dispatch){
   return {
+    // definir las acciones aqui
     // codigo aqui
   }
 }
