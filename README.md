@@ -74,13 +74,13 @@ Se sugiere crear el siguiente contenido (ejemplo para una aplicacion de contador
 ```javascript
 const increment =  () => {
    return {
-     type: 'INCREMENT'
+     type: 'INCREMENTAR'
    }
 }
 
 const decrement =  () => {
    return {
-     type: 'DECREMENT'
+     type: 'DECREMENTAR'
    }
 }
 ```
@@ -94,11 +94,11 @@ Se sugiere crear el siguiente contenido con switch:
 
 ```javascript
 const initialState = { counter: 0 }
-const counter = (state = initialState, action) { 
+const counterReducer = (state = initialState, action) { 
    switch(action.type){
       case 'INCREMENTAR':
           return { ...state, counter: state.counter + 1};
-      case 'DECREMENT':
+      case 'DECREMENTAR':
           return { ...state, counter: state.counter - 1};
       default:
           return state
@@ -109,7 +109,7 @@ Se sugiere crear el siguiente contenido con if:
 
 ```javascript
 const initialState = { counter: 0 }
-const counter = (state = initialState, action) { 
+const counterReducer = (state = initialState, action) { 
    if(action.type === "INCREMENTAR"){
         return {
             ...state,
@@ -133,9 +133,9 @@ Se sugiere crear el siguiente contenido:
 
 ```javascript
 import { createStore } from 'redux';
-import { counter } from './reducer' // Cambiar nombre y ubicación dependiendo a lo creado.
+import { counterReducer } from './reducer' // Cambiar nombre y ubicación dependiendo a lo creado.
 
-const store = createStore(counter);
+const store = createStore(counterReducer);
 
 export default store;
 ```
