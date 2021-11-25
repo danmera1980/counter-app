@@ -7,8 +7,8 @@ En la terminal correr los siguientes comandos:
 
 ```bash
 npx create-react-app nombre-app
-npm install redux react-redux
 cd nombre-app
+npm install redux react-redux
 ```
 #### NOTA: Donde está 'nombre-app', se puede poner el nombre de la aplicación que desee.
 
